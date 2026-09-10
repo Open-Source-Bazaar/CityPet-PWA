@@ -1,28 +1,59 @@
-import { Head, Html, Main, NextScript } from 'next/document';
+import '@khmyznikov/pwa-install';
 
-export default function Document() {
-  return (
-    <Html>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
+import Document, {
+  DocumentContext,
+  Head,
+  Html,
+  Main,
+  NextScript,
+} from 'next/document';
 
-        <link rel="manifest" href="/manifest.json" />
-        <script src="https://polyfill.web-cell.dev/feature/PWAManifest.js"></script>
+import { LanguageCode, parseSSRContext } from '../models/Translation';
 
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-        />
-      </Head>
+interface CustomDocumentProps {
+  language: LanguageCode;
+  colorScheme: 'light' | 'dark';
+}
 
-      <body>
-        <Main />
-        <NextScript />
-      </body>
-    </Html>
-  );
+export default class CustomDocument extends Document<CustomDocumentProps> {
+  static async getInitialProps(context: DocumentContext) {
+    return {
+      ...(await Document.getInitialProps(context)),
+      ...parseSSRContext<CustomDocumentProps>(context, ['language']),
+    };
+  }
+
+  render() {
+    const { language, colorScheme } = this.props;
+
+    return (
+      <Html lang={language} data-bs-theme={colorScheme}>
+        <Head>
+          <link rel="icon" href="/favicon.ico" />
+
+          <link rel="manifest" href="/manifest.json" />
+          <script src="https://polyfill.web-cell.dev/feature/PWAManifest.js" />
+
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/bootstrap-icons@1.13.1/font/bootstrap-icons.css"
+          />
+          <link
+            rel="stylesheet"
+            href="https://unpkg.com/mobx-restful-table@2.7.4/dist/index.css"
+          />
+        </Head>
+
+        <body>
+          <pwa-install />
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }

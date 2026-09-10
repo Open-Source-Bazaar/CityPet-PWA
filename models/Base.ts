@@ -1,16 +1,9 @@
+import 'core-js/full/array/from-async';
+
 import { HTTPClient } from 'koajax';
 import { githubClient, RepositoryModel } from 'mobx-github';
 
-export const isServer = () => typeof window === 'undefined';
-
-const VercelHost = process.env.VERCEL_URL,
-  GithubToken = process.env.GITHUB_TOKEN;
-
-const API_Host = isServer()
-  ? VercelHost
-    ? `https://${VercelHost}`
-    : 'http://localhost:3000'
-  : globalThis.location.origin;
+import { API_Host, GITHUB_TOKEN } from './configuration';
 
 export const ownClient = new HTTPClient({
   baseURI: `${API_Host}/api/`,
@@ -18,15 +11,16 @@ export const ownClient = new HTTPClient({
 });
 
 githubClient.use(({ request }, next) => {
-  if (GithubToken)
+  if (GITHUB_TOKEN)
     request.headers = {
       ...request.headers,
-      Authorization: `Bearer ${GithubToken}`,
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
     };
+
   return next();
 });
 
-export const repositoryStore = new RepositoryModel('Open-Source-Bazaar');
+export const repositoryStore = new RepositoryModel('idea2app');
 
 type UploadedFile = Record<'originalname' | 'filename' | 'location', string>;
 /**
@@ -40,5 +34,6 @@ export async function upload(file: Blob) {
     'https://api.escuelajs.co/api/v1/files/upload',
     form,
   );
+
   return body!.location;
 }

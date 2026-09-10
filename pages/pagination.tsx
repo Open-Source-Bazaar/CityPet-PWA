@@ -1,24 +1,22 @@
-import { text2color } from 'idea-react';
 import { computed } from 'mobx';
 import { GitRepository } from 'mobx-github';
 import { observer } from 'mobx-react';
-import { Column, RestTable } from 'mobx-restful-table';
-import { compose, translator } from 'next-ssr-middleware';
-import { PureComponent } from 'react';
-import { Badge, Container } from 'react-bootstrap';
+import { ObservedComponent } from 'mobx-react-helper';
+import { BadgeBar, Column, RestTable } from 'mobx-restful-table';
+import { Container } from 'react-bootstrap';
 
-import { PageHead } from '../components/PageHead';
+import { PageHead } from '../components/Layout/PageHead';
 import { repositoryStore } from '../models/Base';
-import { i18n } from '../models/Translation';
-
-export const getServerSideProps = compose(translator(i18n));
-
-const { t } = i18n;
+import { i18n, I18nContext } from '../models/Translation';
 
 @observer
-export default class PaginationPage extends PureComponent {
+export default class PaginationPage extends ObservedComponent<{}, typeof i18n> {
+  static contextType = I18nContext;
+
   @computed
   get columns(): Column<GitRepository>[] {
+    const { t } = this.observedContext;
+
     return [
       {
         key: 'full_name',
@@ -28,6 +26,9 @@ export default class PaginationPage extends PureComponent {
             {full_name}
           </a>
         ),
+        required: true,
+        minLength: 3,
+        invalidMessage: 'Input 3 characters at least',
       },
       { key: 'homepage', type: 'url', renderHead: t('home_page') },
       { key: 'language', renderHead: t('programming_language') },
@@ -35,33 +36,27 @@ export default class PaginationPage extends PureComponent {
         key: 'topics',
         renderHead: t('topic'),
         renderBody: ({ topics }) => (
-          <>
-            {topics?.map(topic => (
-              <Badge
-                key={topic}
-                className="me-2"
-                bg={text2color(topic, ['light'])}
-                as="a"
-                target="_blank"
-                href={`https://github.com/topics/${topic}`}
-              >
-                {topic}
-              </Badge>
-            ))}
-          </>
+          <BadgeBar
+            list={(topics || []).map(text => ({
+              text,
+              link: `https://github.com/topics/${text}`,
+            }))}
+          />
         ),
       },
       { key: 'stargazers_count', type: 'number', renderHead: t('star_count') },
+      { key: 'description', renderHead: t('description'), rows: 3 },
     ];
   }
 
   render() {
+    const i18n = this.observedContext;
+
     return (
       <Container style={{ height: '91vh' }}>
-        <PageHead title={t('pagination')} />
+        <PageHead title={i18n.t('pagination')} />
 
         <RestTable
-          className="h-100 text-center"
           striped
           hover
           editable
@@ -69,7 +64,7 @@ export default class PaginationPage extends PureComponent {
           columns={this.columns}
           store={repositoryStore}
           translator={i18n}
-          onCheck={console.log}
+          onCheck={console.info}
         />
       </Container>
     );
