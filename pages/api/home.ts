@@ -1,8 +1,6 @@
 import { i18n } from '../../models/Translation';
 
-const { t } = i18n;
-
-export const mainNav = () => [
+export const mainNav = ({ t }: typeof i18n) => [
   {
     title: t('documentation'),
     link: 'https://nextjs.org/docs',

@@ -6,7 +6,7 @@ import List from '@editorjs/list';
 import Quote from '@editorjs/quote';
 import { Editor as Core, EditorProps } from 'idea-react';
 
-import { upload } from '../models/Base';
+import { upload } from '../../models/Base';
 
 async function uploadByFile(file: File) {
   try {
@@ -15,6 +15,7 @@ async function uploadByFile(file: File) {
     return { success: 1, file: { url } };
   } catch (error) {
     console.error(error);
+
     return { success: 0 };
   }
 }

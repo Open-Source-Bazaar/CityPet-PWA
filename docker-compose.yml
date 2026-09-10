@@ -1,13 +1,17 @@
 version: '3'
 
+volumes:
+  caddy_data:
+  caddy_config:
+
 networks:
-  Open-Source-Bazaar:
+  idea2app:
 
 services:
-  Animal-Rescue:
-    image: Open-Source-Bazaar/Animal-Rescue
+  next-bootstrap-ts:
+    image: idea2app/next-bootstrap-ts
     networks:
-      - Open-Source-Bazaar
+      - idea2app
     healthcheck:
       test: ['CMD-SHELL', 'curl -f http://localhost:3000/ || exit 1']
       interval: 3s
@@ -30,15 +34,20 @@ services:
     image: willfarrell/autoheal:1.2.0
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - idea2app
     restart: always
 
   caddy:
     depends_on:
-      - Animal-Rescue
+      - next-bootstrap-ts
     image: caddy
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
     ports:
       - 80:80
       - 443:443
     networks:
-      - Open-Source-Bazaar
-    command: caddy reverse-proxy --from your.domain.com --to Animal-Rescue:3000
+      - idea2app
+    command: caddy reverse-proxy --from your.domain.com --to next-bootstrap-ts:3000

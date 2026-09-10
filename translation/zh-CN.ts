@@ -20,6 +20,7 @@ export default {
 
   // Pagination Table
   create: '新增',
+  view: '查看',
   submit: '提交',
   cancel: '取消',
   edit: '编辑',
@@ -32,6 +33,7 @@ export default {
   programming_language: '编程语言',
   topic: '话题',
   star_count: '星标数',
+  description: '描述',
 
   // Scroll List
   scroll_list: '滚动列表',
