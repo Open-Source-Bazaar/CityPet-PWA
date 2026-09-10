@@ -12,7 +12,7 @@ import { repositoryStore } from '../models/Base';
 import { I18nContext } from '../models/Translation';
 
 export const getStaticProps = skipBuilding(async () => {
-  const list = await new RepositoryModel('idea2app').getList();
+  const list = await new RepositoryModel('open-source-bazaar').getList();
 
   return { props: JSON.parse(JSON.stringify({ list })) };
 });

@@ -5,13 +5,13 @@ volumes:
   caddy_config:
 
 networks:
-  idea2app:
+  open-source-bazaar:
 
 services:
-  next-bootstrap-ts:
-    image: idea2app/next-bootstrap-ts
+  citypet-pwa:
+    image: open-source-bazaar/citypet-pwa
     networks:
-      - idea2app
+      - open-source-bazaar
     healthcheck:
       test: ['CMD-SHELL', 'curl -f http://localhost:3000/ || exit 1']
       interval: 3s
@@ -35,12 +35,12 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      - idea2app
+      - open-source-bazaar
     restart: always
 
   caddy:
     depends_on:
-      - next-bootstrap-ts
+      - citypet-pwa
     image: caddy
     volumes:
       - caddy_data:/data
@@ -49,5 +49,5 @@ services:
       - 80:80
       - 443:443
     networks:
-      - idea2app
-    command: caddy reverse-proxy --from your.domain.com --to next-bootstrap-ts:3000
+      - open-source-bazaar
+    command: caddy reverse-proxy --from your.domain.com --to citypet-pwa:3000

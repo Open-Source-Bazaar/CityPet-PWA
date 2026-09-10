@@ -1,5 +1,5 @@
 {
-  "name": "@idea2app/next-bootstrap-ts",
+  "name": "@open-source-bazaar/citypet-pwa",
   "version": "2.0.0",
   "description": "React project scaffold based on TypeScript, Next.js, Bootstrap & Workbox.",
   "private": true,
@@ -105,7 +105,7 @@
     "lint:all": "eslint --fix .",
     "lint:inspect": "eslint --inspect-config",
     "test": "lint-staged  &&  tsc --noEmit",
-    "pack-image": "docker build -t idea2app/next-bootstrap-ts:latest .",
-    "container": "docker rm -f next-bootstrap-ts  &&  docker run --name next-bootstrap-ts -p 3000:3000 -d idea2app/next-bootstrap-ts:latest"
+    "pack-image": "docker build -t open-source-bazaar/citypet-pwa:latest .",
+    "container": "docker rm -f citypet-pwa  &&  docker run --name citypet-pwa -p 3000:3000 -d open-source-bazaar/citypet-pwa:latest"
   }
 }
