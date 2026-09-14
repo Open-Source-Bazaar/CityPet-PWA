@@ -30,6 +30,9 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
   @observable
   accessor messageType: 'info' | 'success' = 'info';
 
+  @observable
+  accessor otpSent = false;
+
   handleWebAuthn = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
@@ -66,6 +69,7 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
 
     await userStore.sendOTP(email);
 
+    this.otpSent = true;
     this.messageType = 'info';
     this.message = t('otp_sent_to_email');
   };
@@ -87,13 +91,14 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
     if (this.signType === 'up') {
       await userStore.signUp(email, password);
       this.signType = 'in';
+      this.otpSent = false;
 
       this.messageType = 'success';
       this.message = t('registration_success_please_login');
     } else {
       if (!password) {
         this.messageType = 'info';
-        this.message = t('please_enter_password');
+        this.message = this.otpSent ? t('please_enter_otp') : t('please_enter_password');
 
         return;
       }
@@ -114,7 +119,13 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
         <Tabs
           activeKey={signType}
           className="mb-1"
-          onSelect={key => key && (this.signType = key as typeof signType)}
+          onSelect={key => {
+            if (!key) return;
+
+            this.signType = key as typeof signType;
+            this.otpSent = false;
+            this.message = '';
+          }}
         >
           <Tab eventKey="up" title={t('register')} />
           <Tab eventKey="in" title={t('login')} />
@@ -138,13 +149,18 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
         </Form.Group>
 
         <Form.Group>
-          <Form.Label>{t('password')}</Form.Label>
+          <Form.Label>{signType === 'in' && this.otpSent ? t('otp_code') : t('password')}</Form.Label>
           <InputGroup className="mb-2">
             <Form.Control
               name="password"
-              type="password"
+              autoComplete="off"
+              type={signType === 'in' && this.otpSent ? 'text' : 'password'}
               required={signType === 'up'}
-              placeholder={t('please_enter_password')}
+              placeholder={
+                signType === 'in' && this.otpSent
+                  ? t('please_enter_otp')
+                  : t('please_enter_password')
+              }
             />
           </InputGroup>
           {signType === 'in' && (
