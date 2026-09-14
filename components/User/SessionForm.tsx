@@ -47,7 +47,12 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
     const { t } = this.observedContext;
     const { email } = formToJSON<SignInData>(event.currentTarget.form!);
 
-    if (!email) throw new URIError(t('email_required_for_OTP'));
+    if (!email) {
+      this.messageType = 'info';
+      this.message = t('email_required_for_OTP');
+
+      return;
+    }
 
     await userStore.sendOTP(email);
 
@@ -118,20 +123,22 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
               <Button
                 type="button"
                 variant="outline-secondary"
-                title="Email OTP"
+                formNoValidate
+                title={t('email_OTP')}
                 disabled={loading}
                 onClick={this.handleEmailOTP}
               >
-                OTP
+                {t('email_OTP')}
               </Button>
               <Button
                 type="button"
                 variant="outline-secondary"
-                title="WebAuthn"
+                formNoValidate
+                title={t('webauthn')}
                 disabled={loading}
                 onClick={this.handleWebAuthn}
               >
-                WebAuthn
+                {t('webauthn')}
               </Button>
             </div>
           )}
