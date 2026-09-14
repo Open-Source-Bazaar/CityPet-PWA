@@ -53,6 +53,7 @@ export default {
   send_otp: 'Send OTP',
   webauthn: 'WebAuthn',
   email_required_for_otp: 'Email is required to send verification code',
+  email_required_for_webauthn: 'Email is required for WebAuthn login',
   otp_sent_to_email:
     'Verification code has been sent to your email, enter it in password box and click Login',
   registration_success_please_login: 'Registration successful, please login',

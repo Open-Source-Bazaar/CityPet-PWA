@@ -34,7 +34,17 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
     event.preventDefault();
     event.stopPropagation();
 
-    await userStore.signInWebAuthn();
+    const { t } = this.observedContext;
+    const { email } = formToJSON<SignInData>(event.currentTarget.form!);
+
+    if (!email) {
+      this.messageType = 'info';
+      this.message = t('email_required_for_webauthn');
+
+      return;
+    }
+
+    await userStore.signInWebAuthn(email);
 
     this.message = '';
     this.props.onSignIn?.();

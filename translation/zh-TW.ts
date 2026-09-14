@@ -51,6 +51,7 @@ export default {
   send_otp: '發送驗證碼',
   webauthn: 'WebAuthn',
   email_required_for_otp: '電子郵箱是發送驗證碼的必填項',
+  email_required_for_webauthn: '電子郵箱是 WebAuthn 登入的必填項',
   otp_sent_to_email: '驗證碼已發送到您的郵箱，請填入密碼框並點擊登入',
   registration_success_please_login: '註冊成功，請登入',
 

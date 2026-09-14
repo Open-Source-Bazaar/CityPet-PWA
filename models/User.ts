@@ -1,4 +1,4 @@
-import { HTTPClient } from 'koajax';
+import { HTTPClient, HTTPError } from 'koajax';
 import { observable } from 'mobx';
 import { persist, restore, toggle } from 'mobx-restful';
 
@@ -66,13 +66,20 @@ export class UserModel {
   async createChallenge() {
     const { body } = await this.client
       .get<WebAuthnChallenge>('user/WebAuthn/challenge')
-      .catch(() => this.client.post<WebAuthnChallenge>('user/WebAuthn/challenge'));
+      .catch((error: HTTPError) => {
+        const status = error.response?.status;
+
+        if (status === 404 || status === 405)
+          return this.client.post<WebAuthnChallenge>('user/WebAuthn/challenge');
+
+        throw error;
+      });
 
     return body?.string || '';
   }
 
   @toggle('uploading')
-  async signInWebAuthn() {
+  async signInWebAuthn(email?: string) {
     if (isServer()) throw new Error('WebAuthn not available on server side');
 
     const { client } = await import('@passwordless-id/webauthn');
@@ -81,7 +88,7 @@ export class UserModel {
     const authentication = await client.authenticate({ challenge });
     const { body } = await this.client.post<SessionUser>('user/WebAuthn/authentication', {
       ...authentication,
-      challenge,
+      ...(email && { email }),
     });
 
     return (this.session = body);
