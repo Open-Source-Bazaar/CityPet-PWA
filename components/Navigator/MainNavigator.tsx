@@ -35,8 +35,6 @@ export const MainNavigator: FC = observer(() => {
 
             <Nav.Link href="/scroll-list">{t('scroll_list')}</Nav.Link>
 
-            <Nav.Link href="/session">{t('session')}</Nav.Link>
-
             <Nav.Link
               target="_blank"
               href="https://github.com/open-source-bazaar/citypet-pwa"
