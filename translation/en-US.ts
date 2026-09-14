@@ -44,4 +44,28 @@ export default {
 
   // MDX Article
   article: 'Article',
+
+  // Session
+  session: 'Session',
+  register: 'Register',
+  login: 'Login',
+  email: 'Email',
+  password: 'Password',
+  otp_code: 'OTP Code',
+  please_enter_email: 'Please enter email',
+  please_enter_password: 'Please enter password',
+  please_enter_otp: 'Please enter OTP code',
+  send_otp: 'Send OTP',
+  webauthn: 'WebAuthn',
+  email_required_for_otp: 'Email is required to send verification code',
+  otp_sent_to_email:
+    'Verification code has been sent to your email, enter it in password box and click Login',
+  registration_success_please_login: 'Registration successful, please login',
+  webauthn_credentials: 'Security credentials',
+  webauthn_credentials_description:
+    'Bind this device with a USB key, fingerprint, face, or other security credential',
+  webauthn_credentials_empty:
+    'Bind a USB key, fingerprint, face, or other security credential on this device for one-click login next time',
+  credential_synced: 'Synced',
+  user_verified: 'Verified',
 } as const;

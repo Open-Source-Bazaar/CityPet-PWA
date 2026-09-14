@@ -59,6 +59,7 @@ export default tsEslint.config(
         {
           cspell: {
             language: 'en',
+            words: ['webauthn', 'passwordless'],
             dictionaries: [
               'typescript',
               'node',
