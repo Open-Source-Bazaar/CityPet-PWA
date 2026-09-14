@@ -42,4 +42,26 @@ export default {
 
   // MDX Article
   article: '文章',
+
+  // Session
+  session: '会话',
+  register: '注册',
+  login: '登录',
+  email: '邮箱',
+  password: '密码',
+  otp_code: '验证码',
+  please_enter_email: '请输入邮箱',
+  please_enter_password: '请输入密码',
+  please_enter_otp: '请输入验证码',
+  send_otp: '发送验证码',
+  webauthn: 'WebAuthn',
+  email_required_for_otp: '电子邮箱是发送验证码的必填项',
+  otp_sent_to_email: '验证码已发送到您的邮箱，请填入密码框并点击登录',
+  registration_success_please_login: '注册成功，请登录',
+  webauthn_credentials: '安全凭证',
+  webauthn_credentials_description: '绑定当前设备的 U 盾、指纹、人脸等安全凭证',
+  webauthn_credentials_empty:
+    '在当前设备绑定 U 盾、指纹、人脸等安全凭证，以便下次一键登录',
+  credential_synced: '已同步',
+  user_verified: '已验证',
 } as const;
