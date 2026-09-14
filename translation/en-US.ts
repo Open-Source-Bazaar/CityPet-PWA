@@ -42,6 +42,24 @@ export default {
   load_more: 'Load more...',
   no_more: 'No more',
 
+  // Session
+  session: 'Session',
+  register: 'Register',
+  login: 'Login',
+  email: 'Email',
+  password: 'Password',
+  otp_code: 'OTP Code',
+  please_enter_email: 'Please enter email',
+  please_enter_password: 'Please enter password',
+  please_enter_otp: 'Please enter OTP code',
+  send_otp: 'Send OTP',
+  webauthn: 'WebAuthn',
+  email_required_for_otp: 'Email is required to send verification code',
+  email_required_for_webauthn: 'Email is required for WebAuthn login',
+  otp_sent_to_email:
+    'Verification code has been sent to your email, enter it in password box and click Login',
+  registration_success_please_login: 'Registration successful, please login',
+
   // MDX Article
   article: 'Article',
 } as const;

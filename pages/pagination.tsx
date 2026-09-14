@@ -6,6 +6,7 @@ import { BadgeBar, Column, RestTable } from 'mobx-restful-table';
 import { Container } from 'react-bootstrap';
 
 import { PageHead } from '../components/Layout/PageHead';
+import { SessionBox } from '../components/User/SessionBox';
 import { repositoryStore } from '../models/Base';
 import { i18n, I18nContext } from '../models/Translation';
 
@@ -53,20 +54,22 @@ export default class PaginationPage extends ObservedComponent<{}, typeof i18n> {
     const i18n = this.observedContext;
 
     return (
-      <Container style={{ height: '91vh' }}>
-        <PageHead title={i18n.t('pagination')} />
+      <SessionBox>
+        <Container style={{ height: '91vh' }}>
+          <PageHead title={i18n.t('pagination')} />
 
-        <RestTable
-          striped
-          hover
-          editable
-          deletable
-          columns={this.columns}
-          store={repositoryStore}
-          translator={i18n}
-          onCheck={console.info}
-        />
-      </Container>
+          <RestTable
+            striped
+            hover
+            editable
+            deletable
+            columns={this.columns}
+            store={repositoryStore}
+            translator={i18n}
+            onCheck={console.info}
+          />
+        </Container>
+      </SessionBox>
     );
   }
 }

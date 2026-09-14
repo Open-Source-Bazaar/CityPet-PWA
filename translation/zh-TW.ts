@@ -40,6 +40,23 @@ export default {
   load_more: '加載更多……',
   no_more: '沒有更多',
 
+  // Session
+  session: '會話',
+  register: '註冊',
+  login: '登入',
+  email: '郵箱',
+  password: '密碼',
+  otp_code: '驗證碼',
+  please_enter_email: '請輸入郵箱',
+  please_enter_password: '請輸入密碼',
+  please_enter_otp: '請輸入驗證碼',
+  send_otp: '發送驗證碼',
+  webauthn: 'WebAuthn',
+  email_required_for_otp: '電子郵箱是發送驗證碼的必填項',
+  email_required_for_webauthn: '電子郵箱是 WebAuthn 登入的必填項',
+  otp_sent_to_email: '驗證碼已發送到您的郵箱，請填入密碼框並點擊登入',
+  registration_success_please_login: '註冊成功，請登入',
+
   // MDX Article
   article: '文章',
 } as const;
