@@ -2,7 +2,7 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 import { ObservedComponent } from 'mobx-react-helper';
 import { FormEvent, MouseEvent } from 'react';
-import { Button, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
+import { Alert, Button, Form, InputGroup, Tab, Tabs } from 'react-bootstrap';
 import { formToJSON } from 'web-utility';
 
 import { i18n, I18nContext } from '../../models/Translation';
@@ -24,12 +24,19 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
   @observable
   accessor signType: 'up' | 'in' = 'in';
 
+  @observable
+  accessor message = '';
+
+  @observable
+  accessor messageType: 'info' | 'success' = 'info';
+
   handleWebAuthn = async (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     event.stopPropagation();
 
     await userStore.signInWebAuthn();
 
+    this.message = '';
     this.props.onSignIn?.();
   };
 
@@ -44,7 +51,8 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
 
     await userStore.sendOTP(email);
 
-    alert(t('OTP_sent_to_email'));
+    this.messageType = 'info';
+    this.message = t('OTP_sent_to_email');
   };
 
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -58,9 +66,11 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
       await userStore.signUp(email, password);
       this.signType = 'in';
 
-      alert(t('registration_success_please_login'));
+      this.messageType = 'success';
+      this.message = t('registration_success_please_login');
     } else {
       await userStore.signIn(email, password);
+      this.message = '';
       this.props.onSignIn?.({ email, password });
     }
   };
@@ -81,6 +91,8 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
           <Tab eventKey="in" title={t('login')} />
         </Tabs>
 
+        {this.message && <Alert variant={this.messageType}>{this.message}</Alert>}
+
         <Form.Group>
           <Form.Label>{t('email')}</Form.Label>
           <Form.Control
@@ -93,36 +105,36 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
 
         <Form.Group>
           <Form.Label>{t('password')}</Form.Label>
-          <InputGroup>
+          <InputGroup className="mb-2">
             <Form.Control
               name="password"
               type="password"
               required
               placeholder={t('please_enter_password')}
             />
-            {signType === 'in' && (
-              <>
-                <Button
-                  type="button"
-                  variant="outline-secondary"
-                  title="Email OTP"
-                  disabled={loading}
-                  onClick={this.handleEmailOTP}
-                >
-                  OTP
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline-secondary"
-                  title="WebAuthn"
-                  disabled={loading}
-                  onClick={this.handleWebAuthn}
-                >
-                  WebAuthn
-                </Button>
-              </>
-            )}
           </InputGroup>
+          {signType === 'in' && (
+            <div className="d-flex gap-2">
+              <Button
+                type="button"
+                variant="outline-secondary"
+                title="Email OTP"
+                disabled={loading}
+                onClick={this.handleEmailOTP}
+              >
+                OTP
+              </Button>
+              <Button
+                type="button"
+                variant="outline-secondary"
+                title="WebAuthn"
+                disabled={loading}
+                onClick={this.handleWebAuthn}
+              >
+                WebAuthn
+              </Button>
+            </div>
+          )}
         </Form.Group>
 
         <Button type="submit" disabled={loading}>
