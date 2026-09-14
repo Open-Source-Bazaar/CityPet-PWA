@@ -1,7 +1,6 @@
 import { HTTPClient } from 'koajax';
-import { observable, reaction } from 'mobx';
+import { observable } from 'mobx';
 import { persist, restore, toggle } from 'mobx-restful';
-import { setCookie } from 'web-utility';
 
 import { API_Host, isServer } from './configuration';
 
@@ -25,11 +24,6 @@ export class UserModel {
   accessor uploading = 0;
 
   restored = !isServer() && restore(this, 'User');
-
-  disposer = reaction(
-    () => this.session?.token,
-    token => setCookie('token', token || '', { path: '/' }),
-  );
 
   client = new HTTPClient({
     baseURI: process.env.NEXT_PUBLIC_API_HOST || `${API_Host}/api/`,
@@ -70,7 +64,9 @@ export class UserModel {
 
   @toggle('uploading')
   async createChallenge() {
-    const { body } = await this.client.post<WebAuthnChallenge>('user/WebAuthn/challenge');
+    const { body } = await this.client
+      .get<WebAuthnChallenge>('user/WebAuthn/challenge')
+      .catch(() => this.client.post<WebAuthnChallenge>('user/WebAuthn/challenge'));
 
     return body?.string || '';
   }

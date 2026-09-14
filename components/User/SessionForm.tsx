@@ -103,7 +103,11 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
           <Tab eventKey="in" title={t('login')} />
         </Tabs>
 
-        {this.message && <Alert variant={this.messageType}>{this.message}</Alert>}
+        {this.message && (
+          <Alert role="status" variant={this.messageType}>
+            {this.message}
+          </Alert>
+        )}
 
         <Form.Group>
           <Form.Label>{t('email')}</Form.Label>
