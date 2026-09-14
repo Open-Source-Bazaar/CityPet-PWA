@@ -48,10 +48,10 @@ export default {
   password: '密码',
   please_enter_email: '请输入邮箱',
   please_enter_password: '请输入密码',
-  send_OTP: '发送验证码',
+  send_otp: '发送验证码',
   webauthn: 'WebAuthn',
-  email_required_for_OTP: '电子邮箱是发送验证码的必填项',
-  OTP_sent_to_email: '验证码已发送到您的邮箱，请填入密码框并点击登录',
+  email_required_for_otp: '电子邮箱是发送验证码的必填项',
+  otp_sent_to_email: '验证码已发送到您的邮箱，请填入密码框并点击登录',
   registration_success_please_login: '注册成功，请登录',
 
   // MDX Article

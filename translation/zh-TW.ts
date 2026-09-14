@@ -48,10 +48,10 @@ export default {
   password: '密碼',
   please_enter_email: '請輸入郵箱',
   please_enter_password: '請輸入密碼',
-  send_OTP: '發送驗證碼',
+  send_otp: '發送驗證碼',
   webauthn: 'WebAuthn',
-  email_required_for_OTP: '電子郵箱是發送驗證碼的必填項',
-  OTP_sent_to_email: '驗證碼已發送到您的郵箱，請填入密碼框並點擊登入',
+  email_required_for_otp: '電子郵箱是發送驗證碼的必填項',
+  otp_sent_to_email: '驗證碼已發送到您的郵箱，請填入密碼框並點擊登入',
   registration_success_please_login: '註冊成功，請登入',
 
   // MDX Article

@@ -49,7 +49,7 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
 
     if (!email) {
       this.messageType = 'info';
-      this.message = t('email_required_for_OTP');
+      this.message = t('email_required_for_otp');
 
       return;
     }
@@ -57,7 +57,7 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
     await userStore.sendOTP(email);
 
     this.messageType = 'info';
-    this.message = t('OTP_sent_to_email');
+    this.message = t('otp_sent_to_email');
   };
 
   handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -66,6 +66,13 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
 
     const { t } = this.observedContext;
     const { email, password } = formToJSON<SignInData>(event.currentTarget);
+
+    if (!email) {
+      this.messageType = 'info';
+      this.message = t('please_enter_email');
+
+      return;
+    }
 
     if (this.signType === 'up') {
       await userStore.signUp(email, password);
@@ -103,18 +110,19 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
           <Tab eventKey="in" title={t('login')} />
         </Tabs>
 
-        {this.message && (
-          <Alert role="status" variant={this.messageType}>
-            {this.message}
-          </Alert>
-        )}
+        <div aria-live="polite" role="status">
+          {this.message && (
+            <Alert className="mb-3" variant={this.messageType}>
+              {this.message}
+            </Alert>
+          )}
+        </div>
 
         <Form.Group>
           <Form.Label>{t('email')}</Form.Label>
           <Form.Control
             name="email"
             type="email"
-            required
             placeholder={t('please_enter_email')}
           />
         </Form.Group>
@@ -135,11 +143,11 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
                 type="button"
                 variant="outline-secondary"
                 formNoValidate
-                title={t('send_OTP')}
+                title={t('send_otp')}
                 disabled={loading}
                 onClick={this.handleEmailOTP}
               >
-                {t('send_OTP')}
+                {t('send_otp')}
               </Button>
               <Button
                 type="button"

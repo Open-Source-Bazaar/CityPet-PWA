@@ -50,10 +50,10 @@ export default {
   password: 'Password',
   please_enter_email: 'Please enter email',
   please_enter_password: 'Please enter password',
-  send_OTP: 'Send OTP',
+  send_otp: 'Send OTP',
   webauthn: 'WebAuthn',
-  email_required_for_OTP: 'Email is required to send verification code',
-  OTP_sent_to_email:
+  email_required_for_otp: 'Email is required to send verification code',
+  otp_sent_to_email:
     'Verification code has been sent to your email, enter it in password box and click Login',
   registration_success_please_login: 'Registration successful, please login',
 
