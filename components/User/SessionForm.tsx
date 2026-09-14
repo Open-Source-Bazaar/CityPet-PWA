@@ -74,6 +74,13 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
       this.messageType = 'success';
       this.message = t('registration_success_please_login');
     } else {
+      if (!password) {
+        this.messageType = 'info';
+        this.message = t('please_enter_password');
+
+        return;
+      }
+
       await userStore.signIn(email, password);
       this.message = '';
       this.props.onSignIn?.({ email, password });
@@ -114,7 +121,7 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
             <Form.Control
               name="password"
               type="password"
-              required
+              required={signType === 'up'}
               placeholder={t('please_enter_password')}
             />
           </InputGroup>
@@ -124,11 +131,11 @@ export class SessionForm extends ObservedComponent<SessionFormProps, typeof i18n
                 type="button"
                 variant="outline-secondary"
                 formNoValidate
-                title={t('email_OTP')}
+                title={t('send_OTP')}
                 disabled={loading}
                 onClick={this.handleEmailOTP}
               >
-                {t('email_OTP')}
+                {t('send_OTP')}
               </Button>
               <Button
                 type="button"
