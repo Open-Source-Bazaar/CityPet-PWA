@@ -5,6 +5,8 @@ export const Name = process.env.NEXT_PUBLIC_SITE_NAME,
 
 export const { CI, VERCEL_URL, GITHUB_TOKEN } = process.env;
 
+export const API_HOST = process.env.NEXT_PUBLIC_API_HOST!;
+
 export const API_Host = isServer()
   ? VERCEL_URL
     ? `https://${VERCEL_URL}`
