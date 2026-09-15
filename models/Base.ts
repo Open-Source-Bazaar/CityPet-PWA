@@ -2,8 +2,11 @@ import 'core-js/full/array/from-async';
 
 import { HTTPClient } from 'koajax';
 import { githubClient, RepositoryModel } from 'mobx-github';
+import { Filter, IDType, ListModel, toggle } from 'mobx-restful';
+import { buildURLData } from 'web-utility';
 
 import { API_Host, GITHUB_TOKEN } from './configuration';
+import { Base, ListChunk } from './types';
 
 export const ownClient = new HTTPClient({
   baseURI: `${API_Host}/api/`,
@@ -36,4 +39,29 @@ export async function upload(file: Blob) {
   );
 
   return body!.location;
+}
+
+export abstract class TableModel<
+  D extends Base,
+  F extends Filter<D> = Filter<D>,
+> extends ListModel<D, F> {
+  @toggle('uploading')
+  async updateOne(data: Filter<D>, id?: IDType) {
+    const { body } = await (id
+      ? this.client.put<D>(`${this.baseURI}/${id}`, data)
+      : this.client.post<D>(this.baseURI, data));
+
+    if (id) this.changeOne(body!, id);
+    else this.restoreList({ allItems: [body!, ...this.allItems] });
+
+    return (this.currentOne = body!);
+  }
+
+  async loadPage(pageIndex: number, pageSize: number, filter: F) {
+    const { body } = await this.client.get<ListChunk<D>>(
+      `${this.baseURI}?${buildURLData({ ...filter, pageIndex, pageSize })}`,
+    );
+
+    return { pageData: body!.list, totalCount: body!.count };
+  }
 }

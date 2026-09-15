@@ -42,4 +42,22 @@ export default {
 
   // MDX Article
   article: '文章',
+
+  // User Session
+  session: '用戶會話',
+  email: '電子郵箱',
+  please_enter_email: '請輸入電子郵箱',
+  password: '密碼',
+  please_enter_password: '請輸入密碼',
+  register: '註冊',
+  login: '登入',
+  email_required_for_OTP: '電子郵箱是發送驗證碼的必填項',
+  OTP_sent_to_email: '驗證碼已發送到您的郵箱',
+  registration_success_please_login: '註冊成功，請登入',
+  webauthn_credentials: '安全憑證',
+  webauthn_credentials_description: '綁定目前裝置的 U 盾、指紋、人臉等安全憑證',
+  webauthn_credentials_empty:
+    '在目前裝置綁定 U 盾、指紋、人臉等安全憑證，以便下次一鍵登入',
+  credential_synced: '已同步',
+  user_verified: '已驗證',
 } as const;
