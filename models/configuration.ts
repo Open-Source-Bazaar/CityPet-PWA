@@ -1,7 +1,8 @@
 export const isServer = () => typeof window === 'undefined';
 
 export const Name = process.env.NEXT_PUBLIC_SITE_NAME,
-  Summary = process.env.NEXT_PUBLIC_SITE_SUMMARY;
+  Summary = process.env.NEXT_PUBLIC_SITE_SUMMARY,
+  CloudBaseEnv = process.env.NEXT_PUBLIC_CLOUDBASE_ENV;
 
 export const { CI, VERCEL_URL, GITHUB_TOKEN } = process.env;
 

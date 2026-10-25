@@ -77,12 +77,18 @@ You can check out [the Next.js GitHub repository][28] - your feedback and contri
 
 ### Environment variables
 
-|           name           |     file     |       description       |
-| :----------------------: | :----------: | :---------------------: |
-|   `SENTRY_AUTH_TOKEN`    | `.env.local` | [Official document][29] |
-|       `SENTRY_ORG`       |    `.env`    | [Official document][30] |
-|     `SENTRY_PROJECT`     |    `.env`    | [Official document][30] |
-| `NEXT_PUBLIC_SENTRY_DSN` |    `.env`    | [Official document][31] |
+|            name             |     file     |                       description                        |
+| :-------------------------: | :----------: | :------------------------------------------------------: |
+| `NEXT_PUBLIC_CLOUDBASE_ENV` | `.env.local` | CloudBase environment ID for email and phone OTP sign-in |
+|     `SENTRY_AUTH_TOKEN`     | `.env.local` |                 [Official document][29]                  |
+|        `SENTRY_ORG`         |    `.env`    |                 [Official document][30]                  |
+|      `SENTRY_PROJECT`       |    `.env`    |                 [Official document][30]                  |
+|  `NEXT_PUBLIC_SENTRY_DSN`   |    `.env`    |                 [Official document][31]                  |
+
+To enable OTP sign-in, configure email verification-code login and SMS
+verification-code login in the CloudBase console, and add the deployed domain to
+the allowed domains. SMS sign-in requires a CloudBase environment in the
+Shanghai region and a configured SMS provider.
 
 ### Vercel
 

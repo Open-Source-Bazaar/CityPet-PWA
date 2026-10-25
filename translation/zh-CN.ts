@@ -37,6 +37,22 @@ export default {
 
   // Scroll List
   scroll_list: '滚动列表',
+  session: '登录',
+  email: '电子邮件',
+  phone: '手机号码',
+  phone_format: '请输入带国际区号的号码，例如 +8613800138000。',
+  verification_code: '验证码',
+  send_code: '发送验证码',
+  sending_code: '正在发送……',
+  verify_and_sign_in: '验证并登录',
+  verifying: '正在验证……',
+  change: '修改',
+  code_sent: '验证码已发送，请查收。',
+  login_success: '登录成功。',
+  sign_out: '退出登录',
+  signing_out: '正在退出……',
+  cloudbase_config_required: '请配置 NEXT_PUBLIC_CLOUDBASE_ENV 以启用登录。',
+  authentication_failed: '身份验证失败，请重试。',
   load_more: '加载更多……',
   no_more: '没有更多',
 

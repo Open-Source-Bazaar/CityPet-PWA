@@ -37,6 +37,22 @@ export default {
 
   // Scroll List
   scroll_list: '滾動列表',
+  session: '登入',
+  email: '電子郵件',
+  phone: '手機號碼',
+  phone_format: '請輸入含國際區碼的號碼，例如 +8613800138000。',
+  verification_code: '驗證碼',
+  send_code: '發送驗證碼',
+  sending_code: '正在發送……',
+  verify_and_sign_in: '驗證並登入',
+  verifying: '正在驗證……',
+  change: '修改',
+  code_sent: '驗證碼已發送，請查收。',
+  login_success: '登入成功。',
+  sign_out: '登出',
+  signing_out: '正在登出……',
+  cloudbase_config_required: '請設定 NEXT_PUBLIC_CLOUDBASE_ENV 以啟用登入。',
+  authentication_failed: '身份驗證失敗，請重試。',
   load_more: '加載更多……',
   no_more: '沒有更多',
 

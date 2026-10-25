@@ -39,6 +39,23 @@ export default {
 
   // Scroll List
   scroll_list: 'Scroll List',
+  session: 'Sign in',
+  email: 'Email',
+  phone: 'Phone number',
+  phone_format:
+    'Enter the number with its country code, for example +8613800138000.',
+  verification_code: 'Verification code',
+  send_code: 'Send code',
+  sending_code: 'Sending…',
+  verify_and_sign_in: 'Verify and sign in',
+  verifying: 'Verifying…',
+  change: 'Change',
+  code_sent: 'Verification code sent. Check your inbox or messages.',
+  login_success: 'Signed in successfully.',
+  sign_out: 'Sign out',
+  signing_out: 'Signing out…',
+  cloudbase_config_required: 'Set NEXT_PUBLIC_CLOUDBASE_ENV to enable sign-in.',
+  authentication_failed: 'Authentication failed. Please try again.',
   load_more: 'Load more...',
   no_more: 'No more',
 
