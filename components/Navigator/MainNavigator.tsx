@@ -7,7 +7,8 @@ import { Name } from '../../models/configuration';
 import { I18nContext } from '../../models/Translation';
 
 const LightSwitch = dynamic(() => import('./LightSwitch'), { ssr: false }),
-  LanguageMenu = dynamic(() => import('./LanguageMenu'), { ssr: false });
+  LanguageMenu = dynamic(() => import('./LanguageMenu'), { ssr: false }),
+  UserBar = dynamic(() => import('../User/UserBar'), { ssr: false });
 
 export const MainNavigator: FC = observer(() => {
   const { t } = useContext(I18nContext);
@@ -35,8 +36,6 @@ export const MainNavigator: FC = observer(() => {
 
             <Nav.Link href="/scroll-list">{t('scroll_list')}</Nav.Link>
 
-            <Nav.Link href="/session">{t('session')}</Nav.Link>
-
             <Nav.Link
               target="_blank"
               href="https://github.com/open-source-bazaar/citypet-pwa"
@@ -47,6 +46,7 @@ export const MainNavigator: FC = observer(() => {
 
           <LightSwitch className="my-3 my-sm-0 mx-sm-3" />
           <LanguageMenu />
+          <UserBar className="mt-3 mt-sm-0 ms-sm-3" />
         </Navbar.Collapse>
       </Container>
     </Navbar>

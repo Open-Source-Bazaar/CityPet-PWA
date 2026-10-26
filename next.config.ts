@@ -13,8 +13,14 @@ import RemarkGfm from 'remark-gfm';
 import RemarkMdxFrontMatter from 'remark-mdx-frontmatter';
 import { NormalModuleReplacementPlugin } from 'webpack';
 
-const { NODE_ENV, CI, SENTRY_AUTH_TOKEN, SENTRY_ORG, SENTRY_PROJECT } =
-  process.env;
+const {
+  NODE_ENV,
+  CI,
+  SENTRY_AUTH_TOKEN,
+  SENTRY_ORG,
+  SENTRY_PROJECT,
+  NEXT_PUBLIC_CLOUDBASE_ENV,
+} = process.env;
 const isDev = NODE_ENV === 'development';
 
 const { stdout, stderr } = spawnSync('git', ['rev-parse', 'HEAD'], {
@@ -72,7 +78,26 @@ const webpack: NextConfig['webpack'] = config => {
 };
 
 const rewrites: NextConfig['rewrites'] = async () => ({
-  beforeFiles: [],
+  beforeFiles: NEXT_PUBLIC_CLOUDBASE_ENV
+    ? [
+        {
+          source: '/cloudbase/cloud-api/:path*',
+          destination: `https://${NEXT_PUBLIC_CLOUDBASE_ENV}.ap-shanghai.tcb-api.tencentcloudapi.com/:path*`,
+        },
+        {
+          source: '/cloudbase/:path*',
+          destination: `https://${NEXT_PUBLIC_CLOUDBASE_ENV}.api.tcloudbasegateway.com/:path*`,
+        },
+        {
+          source: '/auth/:path*',
+          destination: `https://${NEXT_PUBLIC_CLOUDBASE_ENV}.api.tcloudbasegateway.com/auth/:path*`,
+        },
+        {
+          source: '/v1/:path*',
+          destination: `https://${NEXT_PUBLIC_CLOUDBASE_ENV}.api.tcloudbasegateway.com/v1/:path*`,
+        },
+      ]
+    : [],
   afterFiles: [],
   fallback: [
     {
