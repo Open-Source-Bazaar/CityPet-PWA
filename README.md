@@ -77,12 +77,31 @@ You can check out [the Next.js GitHub repository][28] - your feedback and contri
 
 ### Environment variables
 
-|           name           |     file     |       description       |
-| :----------------------: | :----------: | :---------------------: |
-|   `SENTRY_AUTH_TOKEN`    | `.env.local` | [Official document][29] |
-|       `SENTRY_ORG`       |    `.env`    | [Official document][30] |
-|     `SENTRY_PROJECT`     |    `.env`    | [Official document][30] |
-| `NEXT_PUBLIC_SENTRY_DSN` |    `.env`    | [Official document][31] |
+|                name                |     file     |                           description                            |
+| :--------------------------------: | :----------: | :--------------------------------------------------------------: |
+|    `NEXT_PUBLIC_CLOUDBASE_ENV`     | `.env.local` |     CloudBase environment ID for email and phone OTP sign-in     |
+| `NEXT_PUBLIC_CLOUDBASE_ACCESS_KEY` | `.env.local` | CloudBase publishable access key, if required by the environment |
+|         `CLOUDBASE_ORIGIN`         | `.env.local` |   Optional CloudBase-allowed origin for the same-origin proxy    |
+|            `JWT_SECRET`            | `.env.local` |    Strong random server-only secret for signing session JWTs     |
+|        `SENTRY_AUTH_TOKEN`         | `.env.local` |                     [Official document][29]                      |
+|            `SENTRY_ORG`            |    `.env`    |                     [Official document][30]                      |
+|          `SENTRY_PROJECT`          |    `.env`    |                     [Official document][30]                      |
+|      `NEXT_PUBLIC_SENTRY_DSN`      |    `.env`    |                     [Official document][31]                      |
+
+Set public CloudBase variables before building; set the same `JWT_SECRET` on
+all application instances. Do not copy environment IDs, origins or secrets
+from the source project.
+
+### Validation
+
+```shell
+pnpm test
+pnpm exec tsc --noEmit
+pnpm build
+```
+
+Authentication tests use mocked CloudBase responses and do not send real email
+or SMS. An actual environment and delivery provider are needed for a live OTP test.
 
 ### Vercel
 

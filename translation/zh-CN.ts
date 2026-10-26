@@ -40,6 +40,26 @@ export default {
   load_more: '加载更多……',
   no_more: '没有更多',
 
+  // Authentication
+  auth_checking: '正在检查登录状态……',
+  auth_email: '电子邮箱',
+  auth_phone: '手机号码',
+  auth_code: '验证码',
+  auth_sent: '验证码已发送，请注意查收。',
+  auth_send: '发送验证码',
+  auth_submit: '登录',
+  auth_sign_out: '退出登录',
+  auth_user: '用户',
+  auth_resend: '重新发送验证码',
+  auth_change_account: '更换账号',
+  auth_missing_verifier: '未返回验证码验证方法，请重新发送验证码。',
+  auth_missing_session: '未返回有效会话，请重试。',
+  cloudbase_config_required: '请配置 NEXT_PUBLIC_CLOUDBASE_ENV 以启用登录。',
+  user_details: '用户详情',
+  user_display_name: '用户名',
+  user_id: '用户 ID',
+  user_not_provided: '未提供',
+
   // MDX Article
   article: '文章',
 } as const;
